@@ -23,7 +23,9 @@
     "express-status": "qubitdigital/express-status",
     "express-winston": "^2.4.0",
     "js-yaml": "^3.8.4",
+    "knex": "^0.13.0",
     "morgan": "^1.8.1",
+    "mysql": "^2.13.0",
     "winston": "^2.3.1"
   },
   "devDependencies": {

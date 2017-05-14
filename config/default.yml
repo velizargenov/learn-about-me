@@ -5,3 +5,8 @@ log:
     enabled: true
     timestamp: true
     prettyPrint: true
+db:
+  host: 127.0.0.1
+  user: root
+  password: password
+  database: learn_about_me
