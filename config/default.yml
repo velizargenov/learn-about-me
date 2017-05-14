@@ -1,0 +1,7 @@
+port: 3000
+log:
+  console:
+    level: silly
+    enabled: true
+    timestamp: true
+    prettyPrint: true
