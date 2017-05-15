@@ -1,4 +1,5 @@
 import knex from '../knex'
+import authenticateCallback from './authenticateCallback'
 
 export default async function (req, res, next) {
   const { username, password } = req.body
@@ -9,13 +10,13 @@ export default async function (req, res, next) {
         username: username,
         password: password
       })
+      authenticateCallback()
     } catch (e) {
       if (e.code === 'ER_DUP_ENTRY') {
         log.debug(`User ${username} already exists`)
         return res.redirect('/signup')
       }
     }
-
   } catch (e) {
     log.debug(`Unable to set entry ${username}`)
     return next(e)
