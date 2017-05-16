@@ -2,17 +2,24 @@ import knex from '../knex'
 import passport from 'passport'
 import { Strategy as LocalStrategy } from 'passport-local'
 
-passport.use('login', new LocalStrategy((username, password, done) => {
-  knex('learn_about_me').where({ username }).first()
-  .then((user) => {
-    if (!user) {
-      return done(null, false)
-    } else {
+passport.use('login', new LocalStrategy(
+  async function(username, password, done) {
+    let user = await knex('learn_about_me')
+    .where({
+      username: username
+    }).first().select([
+      'username',
+      'bio',
+      'created_at'
+    ])
+    console.log(user)
+    if (user) {
       return done(null, user)
+    } else {
+      return done(null, false)
     }
-  })
-  .catch((err) => { return done(err) })
-}))
+  }
+))
 
 passport.serializeUser((user, done) => {
   done(null, user)

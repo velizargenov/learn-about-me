@@ -8,9 +8,14 @@ import bodyParser from 'body-parser'
 import cookieParser from 'cookie-parser'
 import session from './middleware/session'
 import passport from './middleware/passport'
+import path from 'path'
+import flash from 'connect-flash'
 
 export default function app () {
   const app = express()
+
+  app.set('views', path.join(__dirname, 'views'))
+  app.set('view engine', 'ejs')
 
   app.use(logger)
   status(app)
@@ -20,6 +25,7 @@ export default function app () {
   app.use(bodyParser.urlencoded({ extended: false }))
   app.use(bodyParser.json())
   app.use(session)
+  app.use(flash())
   app.use(passport.initialize())
   app.use(passport.session())
   app.use(router)

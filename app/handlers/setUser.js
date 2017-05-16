@@ -1,5 +1,8 @@
 import knex from '../knex'
+import log from '../log'
 import authenticateCallback from './authenticateCallback'
+
+import passport from '../middleware/passport'
 
 export default async function (req, res, next) {
   const { username, password } = req.body
@@ -10,9 +13,10 @@ export default async function (req, res, next) {
         username: username,
         password: password
       })
-      authenticateCallback()
+      authenticateCallback(req, res, next)
     } catch (e) {
       if (e.code === 'ER_DUP_ENTRY') {
+        req.flash('error', 'User already exists')
         log.debug(`User ${username} already exists`)
         return res.redirect('/signup')
       }
@@ -21,5 +25,4 @@ export default async function (req, res, next) {
     log.debug(`Unable to set entry ${username}`)
     return next(e)
   }
-  res.ok()
 }
