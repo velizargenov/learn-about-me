@@ -5,6 +5,7 @@ export default async function getUsers (req, res, next) {
     let users = await knex('learn_about_me')
     .select([
       'username',
+      'displayName',
       'bio',
       'created_at'
     ]).orderBy('created_at', 'desc')

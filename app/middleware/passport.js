@@ -12,7 +12,6 @@ passport.use('login', new LocalStrategy(
       'bio',
       'created_at'
     ])
-    console.log(user)
     if (user) {
       return done(null, user)
     } else {

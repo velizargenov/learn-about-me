@@ -7,6 +7,7 @@ export default async function getUser (req, res, next) {
       username: req.params.username
     }).first().select([
       'username',
+      'displayName',
       'bio',
       'created_at'
     ])

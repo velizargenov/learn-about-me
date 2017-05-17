@@ -6,6 +6,7 @@ exports.up = function(knex, Promise) {
       table.increments('id').notNullable()
       table.string('username', 250).notNullable().unique()
       table.string('password').notNullable()
+      table.string('displayName', 250)
       table.string('bio')
     })
     .raw('ALTER TABLE learn_about_me ADD updated_at TIMESTAMP NOT NULL DEFAULT NOW() ON UPDATE NOW()')

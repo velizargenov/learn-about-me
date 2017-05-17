@@ -11,7 +11,6 @@ import currentUser from './middleware/currentUser'
 import passport from 'passport'
 
 const router = Router()
-const ok = (req, res) => res.send('OK')
 
 router.use(currentUser)
 
@@ -21,8 +20,8 @@ router.post('/signup', setUser)
 router.get('/users/:username', getUser)
 router.get('/login', (req, res) => res.render('login'))
 router.post('/login', authenticateCallback)
-router.get('/edit', ensureAuthenticated, ok)
-router.put('/edit', ensureAuthenticated, updateUser)
+router.get('/edit', ensureAuthenticated, (req, res) => res.render('edit'))
+router.post('/edit', ensureAuthenticated, updateUser)
 router.get('/logout', logout)
 
 export default router
