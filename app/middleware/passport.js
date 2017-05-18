@@ -1,5 +1,6 @@
 import knex from '../knex'
 import passport from 'passport'
+import checkPassword from '../lib/checkPassword'
 import { Strategy as LocalStrategy } from 'passport-local'
 
 passport.use('login', new LocalStrategy(
@@ -10,12 +11,13 @@ passport.use('login', new LocalStrategy(
     }).first().select([
       'username',
       'bio',
+      'password',
       'created_at'
     ])
     if (user) {
-      return done(null, user)
+      checkPassword(password, user.password, done, user)
     } else {
-      return done(null, false)
+      return done(null, false, { message: 'User does not exist!'})
     }
   }
 ))
